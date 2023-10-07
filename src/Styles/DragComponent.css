@@ -1,0 +1,15 @@
+.input {
+    border: 3px solid #E3B81B;
+    padding: 20px;
+    text-align: center;
+    background-color: #01021F;
+    border-radius: 20px;
+    width: 30%;
+    height: 50vh;
+    box-shadow: 16px 15px 0px -3px #E3B81B;
+    -webkit-box-shadow: 16px 15px 0px -3px #E3B81B;
+    -moz-box-shadow: 16px 15px 0px -3px #E3B81B;
+    display: grid;
+    place-items: center;
+    color: #F7F7F7;
+}
