@@ -4,12 +4,23 @@
     text-align: center;
     background-color: #01021F;
     border-radius: 20px;
-    width: 30%;
     height: 50vh;
+    width: 50vw;
     box-shadow: 16px 15px 0px -3px #E3B81B;
     -webkit-box-shadow: 16px 15px 0px -3px #E3B81B;
     -moz-box-shadow: 16px 15px 0px -3px #E3B81B;
     display: grid;
     place-items: center;
     color: #F7F7F7;
+}
+@media screen and (min-width: 1025px) {
+    .input {
+        width: 20vw;
+    }
+}
+
+@media screen and (max-width: 920px) {
+    .input {
+        width: 80vw;
+    }
 }

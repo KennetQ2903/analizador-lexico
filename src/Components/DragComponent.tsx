@@ -3,18 +3,22 @@ import { IoAddCircleOutline } from 'react-icons/io5'
 import '../Styles/DragComponent.css'
 import { Loader } from './Loader'
 export const DragComponent = () => {
-  const [file, setFile] = useState<string>(null)
+  const [loading, setLoading] = useState(false)
+  const [file, setFile] = useState(null)
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
   }
 
   const handleDrop = async (e: DragEvent<HTMLDivElement>) => {
+    setLoading(true)
     e.preventDefault()
     const content = await e.dataTransfer.files[0].text()
+    setLoading(false)
     setFile(content)
   }
-  if (file) {
+
+  if (loading) {
     return <Loader />
   }
 
@@ -26,7 +30,7 @@ export const DragComponent = () => {
     >
       <div>
         <IoAddCircleOutline style={{ verticalAlign: 'middle', fontSize: 100 }} />
-        <p>Arrastra y suelta archivos aquí</p>
+        <p>Suelta tu archivo aquí</p>
       </div>
     </div>
   )
