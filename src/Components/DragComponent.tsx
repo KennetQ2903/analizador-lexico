@@ -1,7 +1,8 @@
-import { useState, DragEvent } from 'react'
+import { useState, DragEvent, useEffect } from 'react'
 import { IoAddCircleOutline } from 'react-icons/io5'
 import '../Styles/DragComponent.css'
 import { Loader } from './Loader'
+import { ValidatorService } from '../Services/validatorService'
 export const DragComponent = () => {
   const [loading, setLoading] = useState(false)
   const [file, setFile] = useState(null)
@@ -14,9 +15,21 @@ export const DragComponent = () => {
     setLoading(true)
     e.preventDefault()
     const content = await e.dataTransfer.files[0].text()
-    setLoading(false)
-    setFile(content)
+    setTimeout(() => {
+      setLoading(false)
+      setFile(content)
+    }, 5000)
   }
+
+  useEffect(() => {
+    if (file) {
+      const validator = async () => {
+        const result = await ValidatorService(file)
+        console.log(JSON.stringify(result))
+      }
+      validator()
+    }
+  }, [file])
 
   if (loading) {
     return <Loader />
