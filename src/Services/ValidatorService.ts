@@ -18,7 +18,6 @@ export const ValidatorService = async (xml: string): Promise<Result> => {
   const parser = new XMLParser(options)
   try {
     const json: XML = parser.parse(xml)
-    console.log('XML', JSON.stringify(json))
     const result = await xmlValidator.validate(json, { abortEarly: false })
     return {
       code: Codes.ok,

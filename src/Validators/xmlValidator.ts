@@ -27,5 +27,5 @@ export const xmlValidator: yup.ObjectSchema<XML> = yup.object().shape({
           message: 'EL correo de la persona no es valido'
         })
     })).required('El nodo PERSONA es obligatorio')
-  })
+  }).required('El archivo XML no es valido, nodo raiz invalido')
 })

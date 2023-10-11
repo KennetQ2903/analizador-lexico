@@ -23,10 +23,7 @@ export const DragComponent = () => {
 
   useEffect(() => {
     if (file) {
-      const validator = async () => {
-        const result = await ValidatorService(file)
-        console.log(JSON.stringify(result))
-      }
+      const validator = async () => await ValidatorService(file)
       validator()
     }
   }, [file])
