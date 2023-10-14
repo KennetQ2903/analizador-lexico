@@ -1,11 +1,13 @@
-import { useState, DragEvent, useEffect } from 'react'
+import { useState, DragEvent } from 'react'
 import { IoAddCircleOutline } from 'react-icons/io5'
-import '../Styles/DragComponent.css'
+import 'Styles/DragComponent.css'
 import { Loader } from './Loader'
-import { ValidatorService } from '../Services/validatorService'
+import { useValidateXml } from 'Hooks/useValidateXml'
+import { Analizer } from './Analizer'
+
 export const DragComponent = () => {
+  const { result, setFile } = useValidateXml()
   const [loading, setLoading] = useState(false)
-  const [file, setFile] = useState(null)
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault()
@@ -21,15 +23,12 @@ export const DragComponent = () => {
     }, 5000)
   }
 
-  useEffect(() => {
-    if (file) {
-      const validator = async () => await ValidatorService(file)
-      validator()
-    }
-  }, [file])
-
-  if (loading) {
+  if (loading && !result) {
     return <Loader />
+  }
+
+  if (!loading && result) {
+    return <Analizer result={result} />
   }
 
   return (

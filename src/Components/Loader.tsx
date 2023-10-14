@@ -1,4 +1,4 @@
-import '../Styles/Loader.css'
+import 'Styles/Loader.css'
 export const Loader = () => {
   return (
     <div className='container'>

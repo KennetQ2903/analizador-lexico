@@ -12,8 +12,14 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "paths": {
-      "*": ["node_modules/*"],
-      "Styles": ["./src/Styles/*"]
+      "Styles/*": ["src/Styles/*"],
+      "Services/*": ["src/Services/*"],
+      "Components/*": ["src/Components/*"],
+      "Screens/*": ["src/Screens/*"],
+      "Types/*": ["src/Types/*"],
+      "Validators/*": ["src/Validators/*"],
+      "Animations/*": ["src/Animations/*"],
+      "Hooks/*": ["src/Hooks/*"],
     },
     "jsx": "react-jsx",
   },

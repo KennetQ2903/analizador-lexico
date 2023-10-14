@@ -1,10 +1,11 @@
 import { X2jOptions, XMLParser } from 'fast-xml-parser'
 import { xmlValidator } from '../Validators/xmlValidator'
 import { Codes } from '../Validators/dictionary'
-import { XML } from '../Types/types'
+import { ValidationResponse, XML } from '../Types/types'
+
 type Result={
     code: number
-    data: any
+    data: ValidationResponse
     error: any
 }
 export const ValidatorService = async (xml: string): Promise<Result> => {
@@ -18,7 +19,8 @@ export const ValidatorService = async (xml: string): Promise<Result> => {
   const parser = new XMLParser(options)
   try {
     const json: XML = parser.parse(xml)
-    const result = await xmlValidator.validate(json, { abortEarly: false })
+    // @ts-ignore
+    const result: ValidationResponse = await xmlValidator.validate(json, { abortEarly: false })
     return {
       code: Codes.ok,
       data: result,
