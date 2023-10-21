@@ -38,7 +38,7 @@ export type InnerError = {
 export type YupResponse = {
     value: XML;
     errors: Array<string>;
-    inner: InnerError;
+    inner: Array<InnerError>;
     name: string;
     message: string;
 }

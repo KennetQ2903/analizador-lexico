@@ -11,6 +11,12 @@ export const useValidateXml = () => {
     setResult(response.data)
   }, [file])
 
+  const reset = useCallback(() => {
+    setResult(null)
+    setFile(null)
+    setResult(null)
+  }, [])
+
   useEffect(() => {
     if (file) {
       const validator = async () => await validateXml()
@@ -20,6 +26,7 @@ export const useValidateXml = () => {
 
   return {
     result,
-    setFile
+    setFile,
+    reset
   }
 }

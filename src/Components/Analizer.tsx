@@ -2,9 +2,13 @@ import check from 'Animations/check.json'
 import error from 'Animations/error.json'
 import { ValidationResponse } from 'Types/types'
 import Lottie from 'lottie-react'
+import { useEffect, useState } from 'react'
+import { Dashboard } from './Dashboard'
 
 interface Props {
-    result: ValidationResponse
+  result: ValidationResponse
+  reset: () => void
+
 }
 
 const ErrorReport = () => {
@@ -26,16 +30,33 @@ const SuccessReport = () => {
     />
   )
 }
-export const Analizer = ({ result }: Props) => {
-  console.log(JSON.stringify(result))
+export const Analizer = ({ result, reset }: Props) => {
+  const [error, setError] = useState(false)
+  const [success, setSuccess] = useState(false)
 
-  if (result?.errors?.length > 0) {
+  useEffect(() => {
+    if (result?.errors?.length > 0) {
+      setSuccess(false)
+      setError(true)
+      setTimeout(() => setError(false), 1000)
+    } else {
+      setSuccess(true)
+      setError(false)
+      setTimeout(() => setSuccess(false), 1000)
+    }
+  }, [result?.errors?.length])
+
+  if (error) {
+    return <ErrorReport />
+  }
+
+  if (success) {
     return (
-      <ErrorReport />
+      <SuccessReport />
     )
   }
 
   return (
-    <SuccessReport />
+    <Dashboard result={result} reset={reset} />
   )
 }

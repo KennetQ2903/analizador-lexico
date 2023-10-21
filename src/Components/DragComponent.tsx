@@ -6,7 +6,7 @@ import { useValidateXml } from 'Hooks/useValidateXml'
 import { Analizer } from './Analizer'
 
 export const DragComponent = () => {
-  const { result, setFile } = useValidateXml()
+  const { result, setFile, reset } = useValidateXml()
   const [loading, setLoading] = useState(false)
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
@@ -20,7 +20,7 @@ export const DragComponent = () => {
     setTimeout(() => {
       setLoading(false)
       setFile(content)
-    }, 5000)
+    }, 3000)
   }
 
   if (loading && !result) {
@@ -28,7 +28,7 @@ export const DragComponent = () => {
   }
 
   if (!loading && result) {
-    return <Analizer result={result} />
+    return <Analizer result={result} reset={reset} />
   }
 
   return (
