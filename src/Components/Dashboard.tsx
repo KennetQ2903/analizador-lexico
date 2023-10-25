@@ -21,7 +21,8 @@ const iconStyle = {
 }
 
 export const Dashboard = ({ result, reset }: Props) => {
-  const validStructure = Object.keys(result?.value?.XML || {})?.length
+  // @ts-ignore
+  const validStructure = Object.keys(result?.value?.XML || result?.XML || {})?.length
   const invalidNodes = result?.errors?.some(e => e.includes('El nodo PERSONA es obligatorio'))
   // @ts-ignore
   const totalNodesAnalized = result?.value?.XML?.PERSONA?.length || result?.XML?.PERSONA?.length || 0

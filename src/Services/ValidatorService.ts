@@ -8,12 +8,20 @@ type Result={
     data: ValidationResponse
     error: any
 }
+
+const alwaysArray = [
+  'XML.PERSONA'
+]
+
 export const ValidatorService = async (xml: string): Promise<Result> => {
   const options: Partial<X2jOptions> = {
     ignoreAttributes: false,
     numberParseOptions: {
       leadingZeros: false,
       hex: false
+    },
+    isArray: (_name, jpath, _isLeafNode, _isAttribute) => {
+      if (alwaysArray.indexOf(jpath) !== -1) return true
     }
   }
   const parser = new XMLParser(options)
