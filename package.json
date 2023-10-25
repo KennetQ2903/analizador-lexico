@@ -2,7 +2,7 @@
   "name": "analizador-lexico",
   "productName": "analizador-lexico",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Kennet Jorshoa Ortega Quiroz 3490-21-8308",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",

@@ -21,10 +21,14 @@ const iconStyle = {
 }
 
 export const Dashboard = ({ result, reset }: Props) => {
-  const totalNodesAnalized = result?.value?.XML?.PERSONA?.length ?? 0
-  const totalEmails = result?.value?.XML?.PERSONA.map(i => Object.keys(i))?.flat()?.filter(e => e === 'CORREO')?.length ?? 0
-  const totalNames = result?.value?.XML?.PERSONA.map(i => Object.keys(i))?.flat()?.filter(e => e === 'NOMBRE')?.length ?? 0
-  const totalPhones = result?.value?.XML?.PERSONA.map(i => Object.keys(i))?.flat()?.filter(e => e === 'TELEFONO')?.length ?? 0
+  // @ts-ignore
+  const totalNodesAnalized = result?.value?.XML?.PERSONA?.length || result?.XML?.PERSONA?.length
+  // @ts-ignore
+  const nodes = [result?.value?.XML?.PERSONA || result?.XML?.PERSONA].flat()
+
+  const totalEmails = nodes.map(i => Object.keys(i))?.flat()?.filter(e => e === 'CORREO')?.length ?? 0
+  const totalNames = nodes.map(i => Object.keys(i))?.flat()?.filter(e => e === 'NOMBRE')?.length ?? 0
+  const totalPhones = nodes.map(i => Object.keys(i))?.flat()?.filter(e => e === 'TELEFONO')?.length ?? 0
 
   const totalErrorsEmails = result?.inner?.filter(e => e.path.includes('CORREO'))?.length ?? 0
   const totalErrorsNames = result?.inner?.filter(e => e.path.includes('NOMBRE'))?.length ?? 0
