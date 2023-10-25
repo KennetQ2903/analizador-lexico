@@ -1,6 +1,6 @@
 import 'Styles/Dashboard.css'
 import { ValidationResponse } from 'Types/types'
-import { IoMailOpenOutline, IoIdCardOutline, IoCallOutline, IoGitBranchOutline } from 'react-icons/io5'
+import { IoMailOpenOutline, IoIdCardOutline, IoCallOutline, IoGitBranchOutline, IoAlertCircleOutline } from 'react-icons/io5'
 
 interface Props {
   result: ValidationResponse
@@ -21,14 +21,16 @@ const iconStyle = {
 }
 
 export const Dashboard = ({ result, reset }: Props) => {
+  const validStructure = Object.keys(result?.value?.XML || {})?.length
+  const invalidNodes = result?.errors?.some(e => e.includes('El nodo PERSONA es obligatorio'))
   // @ts-ignore
-  const totalNodesAnalized = result?.value?.XML?.PERSONA?.length || result?.XML?.PERSONA?.length
+  const totalNodesAnalized = result?.value?.XML?.PERSONA?.length || result?.XML?.PERSONA?.length || 0
   // @ts-ignore
   const nodes = [result?.value?.XML?.PERSONA || result?.XML?.PERSONA].flat()
 
-  const totalEmails = nodes.map(i => Object.keys(i))?.flat()?.filter(e => e === 'CORREO')?.length ?? 0
-  const totalNames = nodes.map(i => Object.keys(i))?.flat()?.filter(e => e === 'NOMBRE')?.length ?? 0
-  const totalPhones = nodes.map(i => Object.keys(i))?.flat()?.filter(e => e === 'TELEFONO')?.length ?? 0
+  const totalEmails = nodes.map(i => i ? Object.keys(i) : null)?.flat()?.filter(e => e === 'CORREO')?.length ?? 0
+  const totalNames = nodes.map(i => i ? Object.keys(i) : null)?.flat()?.filter(e => e === 'NOMBRE')?.length ?? 0
+  const totalPhones = nodes.map(i => i ? Object.keys(i) : null)?.flat()?.filter(e => e === 'TELEFONO')?.length ?? 0
 
   const totalErrorsEmails = result?.inner?.filter(e => e.path.includes('CORREO'))?.length ?? 0
   const totalErrorsNames = result?.inner?.filter(e => e.path.includes('NOMBRE'))?.length ?? 0
@@ -37,6 +39,28 @@ export const Dashboard = ({ result, reset }: Props) => {
   const totalOkEmails = totalEmails - totalErrorsEmails
   const totalOkNames = totalNames - totalErrorsNames
   const totalOkPhones = totalPhones - totalErrorsPhones
+
+  if (!validStructure || invalidNodes) {
+    return (
+      <div className='contenedor'>
+        <div className='firstElement'>
+          <div className='container-data'>
+            <div className='data'>
+              <span style={{ fontSize: '2rem' }}>XML invalido</span>
+            </div>
+            <IoAlertCircleOutline style={{
+              verticalAlign: 'middle',
+              fontSize: 120
+            }}
+            />
+          </div>
+        </div>
+        <button className='button-container' onClick={reset}>
+          <span>OK</span>
+        </button>
+      </div>
+    )
+  }
 
   return (
     <div className='contenedor'>

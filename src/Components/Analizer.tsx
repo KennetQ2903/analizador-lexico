@@ -35,6 +35,7 @@ export const Analizer = ({ result, reset }: Props) => {
   const [success, setSuccess] = useState(false)
 
   useEffect(() => {
+    // console.log('RESULTADO: ', JSON.stringify(result))
     if (result?.errors?.length > 0) {
       setSuccess(false)
       setError(true)
@@ -44,7 +45,7 @@ export const Analizer = ({ result, reset }: Props) => {
       setError(false)
       setTimeout(() => setSuccess(false), 1000)
     }
-  }, [result?.errors?.length])
+  }, [result])
 
   if (error) {
     return <ErrorReport />
